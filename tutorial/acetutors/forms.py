@@ -36,7 +36,7 @@ class InfoForm(forms.ModelForm):
 
     class Meta:
         model = Song
-        fields = ['info_title', 'audio_file']
+        fields = ['info_title', 'files_here']
 
 
 class UserForm(forms.ModelForm):
