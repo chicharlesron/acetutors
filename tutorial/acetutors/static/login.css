@@ -1,0 +1,69 @@
+.edit{
+    padding: 40px;
+
+}
+body{
+            background-color: lightgray;
+}
+input[type=email], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+table td{
+    padding-left: 10px;
+}
+
+
+button {
+    background-color: grey;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    font-size: 15px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    background-color: #f44336;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    font-size: 15px;
+}
+.ace{
+    padding-left: 25px;
+
+}
+.buo{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    padding: center;
+    position: center fixed;
+    width: 100%;
+    background-color: lightgray;
+}
+img{
+    width: 250px;
+    height: 150px;
+}
+.picture{
+    position: relative;
+
+}
+.check{
+    font-size: 15px;
+
+}

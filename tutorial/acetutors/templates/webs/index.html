@@ -1,0 +1,111 @@
+{% extends 'webs/base.html' %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="albums-container container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 style="color: white;">Welcome! {{ user.username }} </h3>
+        </div>
+        {% if infos %}
+            {% for info in infos %}
+                <div class="col-sm-6 col-lg-4">
+                    <div class="thumbnail">
+                        <a href="{% url 'acetutors:detail' info.id %}">
+                            <img src="{{ info.picture_topic.url }}" class="img-responsive">
+                        </a>
+                        <div class="caption">
+                         <h2><b>Name: </b>{{ info.full_name }}</h2>
+                            <h4><b>Email: </b>{{ info.email }}</h4>
+                            <h4><b>Course: </b>{{ info.course }}</h4>
+                            <h4><b>Date: </b>{{ info.tutorial_date }}</h4>
+                            <h4><b>Time: </b>{{ info.tutorial_start }} to {{ info.tutorial_end }} </h4>
+
+
+                            <!-- View Details -->
+                            <a href="{% url 'acetutors:detail' info.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                            <!-- Delete Album -->
+                            <form action="{% url 'acetutors:delete_album' info.id %}"  method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="info_id" value="{{ info.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+
+                            <!-- Favorite Album -->
+                            <a href="{% url 'acetutors:favorite_album' info.id %}" class="btn btn-default btn-sm btn-favorite" role="button">
+                                <span class="glyphicon glyphicon-star {% if info.is_favorite %}active{% endif %}"></span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'acetutors:create_album' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Create New Schedule
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- If user searches and there are songs -->
+    {% if songs %}
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Songs</h3>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Song Title</th>
+                                    <th>Full Name</th>
+                                    <th>Audio File</th>
+                                    <th>Information</th>
+                                    <th>Favorite</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for song in songs %}
+                                    <tr>
+                                        <td>{{ song.info_title }}</td>
+                                        <td>{{ song.info.full_name }}</td>
+                                        <td>
+                                            <a target="_blank" href="{{ song.audio_file.url }}">
+                                                <button type="button" class="btn btn-success btn-xs">
+                                                    <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'acetutors:detail' song.info.id %}">
+                                                <img src="{{ song.info.picture_topic.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;" />
+                                            </a>
+                                            <a href="{% url 'acetutors:detail' song.info.id %}">{{ song.info.email }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'acetutors:favorite' song.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if song.is_favorite %}active{% endif %}"></span></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
